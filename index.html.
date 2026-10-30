@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой первый сайт</title>
+    <style>
+        body {
+            background: #f0eaff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        h1 {
+            color: #7045c5;
+            font-size: 40px;
+        }
+
+        p {
+            color: #444;
+            font-size: 20px;
+        }
+
+        button {
+            background: #7045c5;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Привет! 👋</h1>
+
+    <p>Это мой первый сайт!</p>
+
+    <p>Я учусь создавать сайты с помощью GitHub.</p>
+
+    <button onclick="alert('Добро пожаловать на мой сайт!')">
+        Нажми на меня
+    </button>
+
+</body>
+</html>
