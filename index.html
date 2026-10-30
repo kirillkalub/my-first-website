@@ -17,20 +17,51 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
-
 body {
   margin: 0;
   color: var(--dark);
   background: var(--cream);
   font-family: 'Comfortaa', sans-serif;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 button, input { font: inherit; }
 
+/* ОТДЕЛЬНЫЕ ЭКРАНЫ */
+
+.screen {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 105px;
+  opacity: 0;
+  transform: translateY(22px) scale(.985);
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    opacity .55s ease,
+    transform .65s cubic-bezier(.22, 1, .36, 1);
+}
+
+.screen.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.screen.leaving {
+  opacity: 0;
+  transform: translateY(-18px) scale(.99);
+}
+
+/* ГЛАВНЫЙ ЭКРАН */
+
 .hero {
-  min-height: 100svh;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,7 +84,11 @@ button, input { font: inherit; }
   transform: rotate(-15deg);
 }
 
-.hero-content { position: relative; z-index: 1; }
+.hero-content {
+  position: relative;
+  z-index: 1;
+  animation: appear .9s ease;
+}
 
 .eyebrow {
   letter-spacing: 3px;
@@ -80,6 +115,8 @@ h1, h2 {
   font-size: 14px;
 }
 
+/* КНОПКИ */
+
 .primary-btn {
   border: 0;
   border-radius: 50px;
@@ -88,13 +125,18 @@ h1, h2 {
   padding: 16px 25px;
   cursor: pointer;
   box-shadow: 0 8px 25px #a9446b35;
-  transition: .25s;
+  transition: transform .25s, box-shadow .25s;
 }
 
-.primary-btn:active { transform: scale(.96); }
+.primary-btn:active {
+  transform: scale(.96);
+}
+
+/* ОБЩИЕ СЕКЦИИ */
 
 .section {
-  padding: 75px 20px;
+  min-height: 100%;
+  padding: 65px 20px 45px;
   text-align: center;
 }
 
@@ -117,6 +159,8 @@ h1, h2 {
   margin: 22px auto;
 }
 
+/* ФОТОГРАФИИ */
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -133,7 +177,9 @@ h1, h2 {
   transform: rotate(-2deg);
 }
 
-.photo:nth-child(even) { transform: rotate(2deg); }
+.photo:nth-child(even) {
+  transform: rotate(2deg);
+}
 
 .photo img {
   width: 100%;
@@ -148,6 +194,8 @@ h1, h2 {
   margin: 10px 0 0;
   font-size: 14px;
 }
+
+/* ПИСЬМО */
 
 .letter-section {
   background: linear-gradient(140deg, #f8e4ed, #fff3ed);
@@ -188,9 +236,10 @@ h1, h2 {
   margin-top: 20px;
 }
 
+/* ВИКТОРИНА */
+
 .quiz-section {
   background: #fffaf7;
-  min-height: 480px;
 }
 
 .quiz-card {
@@ -222,7 +271,9 @@ h1, h2 {
   background: #fffafd;
 }
 
-.answer-input:focus { border-color: #c85b87; }
+.answer-input:focus {
+  border-color: #c85b87;
+}
 
 .quiz-message {
   min-height: 55px;
@@ -247,10 +298,13 @@ h1, h2 {
   font-size: 32px;
 }
 
+/* ФИНАЛ */
+
 .final-section {
+  min-height: 100%;
   background: linear-gradient(150deg, #542b40, #9f466a);
   color: white;
-  padding: 85px 20px;
+  padding: 85px 20px 45px;
 }
 
 .final-section h2 {
@@ -277,11 +331,63 @@ footer {
   font-size: 11px;
 }
 
+/* НАВИГАЦИЯ */
+
+.navigation {
+  position: fixed;
+  z-index: 20;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, #fff8f5 75%, #fff8f500);
+  transition: opacity .3s;
+}
+
+.navigation.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-btn {
+  border: 1px solid #e8b1c7;
+  border-radius: 40px;
+  padding: 12px 20px;
+  background: #fffafd;
+  color: #a9446b;
+  cursor: pointer;
+  box-shadow: 0 4px 15px #a9446b18;
+}
+
+.nav-btn.next {
+  background: #a9446b;
+  color: white;
+  border-color: #a9446b;
+}
+
+.nav-btn:disabled {
+  opacity: .35;
+  cursor: default;
+}
+
+.screen-count {
+  font-size: 12px;
+  color: #92677a;
+  min-width: 35px;
+  text-align: center;
+}
+
+/* СЕРДЕЧКИ И АНИМАЦИИ */
+
 .heart {
   position: fixed;
   bottom: -30px;
   pointer-events: none;
-  z-index: 10;
+  z-index: 30;
   animation: floatUp 4s linear forwards;
 }
 
@@ -293,37 +399,50 @@ footer {
 }
 
 @keyframes appear {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 360px) {
   .gallery { gap: 8px; }
   .photo { padding: 6px 6px 12px; }
+  .nav-btn { padding: 11px 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ГЛАВНЫЙ ЭКРАН -->
-<header class="hero" id="home">
+<!-- ЭКРАН 1: ГЛАВНАЯ -->
+<header class="screen hero active" id="home">
   <div class="hero-content">
     <div class="eyebrow">1.11.2026 · особенный день</div>
     <h1>9 месяцев<br>вместе ♡</h1>
     <p>
       Для моей самой лучшей и замечательной девушки я сделал кое-что необычное. То, что тебе очень понравится (надеюсь).
     </p>
-    <button class="primary-btn" onclick="startGift()">
+    <button class="primary-btn" onclick="nextScreen()">
       Открыть мой подарок 💌
     </button>
   </div>
 </header>
 
-<main id="main">
-
-<!-- ФОТОГРАФИИ -->
-<section class="section" id="memories">
+<!-- ЭКРАН 2: ФОТОГРАФИИ -->
+<section class="screen section" id="memories">
   <div class="eyebrow">Наш чудесный мир</div>
   <h2>Наши фоточки 📸</h2>
   <div class="divider"></div>
@@ -351,7 +470,7 @@ footer {
     </div>
     <div class="photo">
       <img src="photo5.jpg" alt="Наше воспоминание 5">
-      <p>Ещё мое любимое солнышко</p>
+      <p>Ещё моё любимое солнышко</p>
     </div>
     <div class="photo">
       <img src="photo6.jpg" alt="Наше воспоминание 6">
@@ -360,8 +479,8 @@ footer {
   </div>
 </section>
 
-<!-- ПИСЬМО -->
-<section class="section letter-section" id="letter">
+<!-- ЭКРАН 3: ПИСЬМО -->
+<section class="screen section letter-section" id="letter">
   <div class="eyebrow">Несколько слов от меня</div>
   <h2>Для тебя, моя кошечка Валя 💌</h2>
   <div class="divider"></div>
@@ -375,15 +494,15 @@ footer {
     </button>
 
     <div class="letter" id="letterText">
-Валь, я тебя очень сильно люблю, ты говорила, что на наши 9 месяцев кто-то родится, и вот родился сайт специально для тебя) 
+Валь, я тебя очень сильно люблю, ты говорила, что на наши 9 месяцев кто-то родится, и вот родился сайт специально для тебя)
 
 Ты лучше всех, моё солнышко.
 
-Поздравляю, моя любимая 🖤 Спасибо тебе за все моменты, за каждую секунду, что ты со мной. Я очень очень сильно дорожу тобой и нашими отношениями.
- 
+Поздравляю, моя любимая 🖤 Спасибо тебе за все моменты, за каждую секунду, что ты со мной. Я очень-очень сильно дорожу тобой и нашими отношениями.
+
 Впереди нас ждёт ещё больше, очень много счастливых моментов и воспоминаний.
 
-Ещё 5 января я понял, что ты - мой человечек, который будет со мной навсегда. И я не ошибся) 
+Ещё 5 января я понял, что ты — мой человечек, который будет со мной навсегда. И я не ошибся)
 
 Обожаю тебя ♡
       <div class="letter-sign">Только твой Кирилл 🖤</div>
@@ -391,8 +510,8 @@ footer {
   </div>
 </section>
 
-<!-- ЗАГАДКА -->
-<section class="section quiz-section" id="quiz">
+<!-- ЭКРАН 4: ЗАГАДКА -->
+<section class="screen section quiz-section" id="quiz">
   <div class="eyebrow">Отгадай маленькую загадку</div>
   <h2>А теперь вопрос...</h2>
   <div class="divider"></div>
@@ -428,15 +547,15 @@ footer {
   </div>
 </section>
 
-<!-- ФИНАЛ -->
-<section class="section final-section" id="final">
+<!-- ЭКРАН 5: ФИНАЛ -->
+<section class="screen section final-section" id="final">
   <div style="font-size:48px">🖤</div>
   <div class="eyebrow" style="color:#f5bfd2">Наша история</div>
   <h2>9 месяцев —<br>и это только начало</h2>
 
   <p>
     Спасибо, что ты есть в моей жизни.<br>
-    Спасибо за твою улыбку, любовь, тепло, поддержку и абсолютно все время, что ты со мной.
+    Спасибо за твою улыбку, любовь, тепло, поддержку и абсолютно всё время, что ты со мной.
   </p>
 
   <div class="counter" id="countdown"></div>
@@ -444,21 +563,102 @@ footer {
   <p style="margin-top:35px;color:#ffe0eb">
     Ты моё маленькое и самое яркое солнышко. ♡
   </p>
+
+  <footer>
+    Сделано с любовью специально для моей девочки Вали ♡
+    <br><br>
+    1.11.2026
+  </footer>
 </section>
 
-</main>
+<!-- КНОПКИ ПЕРЕКЛЮЧЕНИЯ -->
+<nav class="navigation hidden" id="navigation">
+  <button class="nav-btn" id="backBtn" onclick="prevScreen()">
+    ← Назад
+  </button>
 
-<footer>
-  Сделано с любовью специально для моей девочки Вали ♡
-  <br><br>
-  1.11.2026
-</footer>
+  <div class="screen-count" id="screenCount">2 / 5</div>
+
+  <button class="nav-btn next" id="nextBtn" onclick="nextScreen()">
+    Дальше →
+  </button>
+</nav>
 
 <script>
+const screens = [
+  document.getElementById('home'),
+  document.getElementById('memories'),
+  document.getElementById('letter'),
+  document.getElementById('quiz'),
+  document.getElementById('final')
+];
+
+let currentScreen = 0;
+let switching = false;
+
+const navigation = document.getElementById('navigation');
+const backBtn = document.getElementById('backBtn');
+const nextBtn = document.getElementById('nextBtn');
+const screenCount = document.getElementById('screenCount');
+
+function updateNavigation() {
+  navigation.classList.toggle('hidden', currentScreen === 0);
+
+  backBtn.disabled = currentScreen === 0;
+  nextBtn.disabled = currentScreen === screens.length - 1;
+
+  screenCount.textContent =
+    (currentScreen + 1) + ' / ' + screens.length;
+
+  nextBtn.textContent =
+    currentScreen === screens.length - 1
+      ? 'Конец ♡'
+      : 'Дальше →';
+}
+
+function goToScreen(index) {
+  if (
+    switching ||
+    index < 0 ||
+    index >= screens.length ||
+    index === currentScreen
+  ) return;
+
+  switching = true;
+
+  const oldScreen = screens[currentScreen];
+  const newScreen = screens[index];
+
+  oldScreen.classList.remove('active');
+  oldScreen.classList.add('leaving');
+
+  newScreen.classList.remove('leaving');
+  newScreen.classList.add('active');
+
+  currentScreen = index;
+
+  // Каждый экран открывается с самого верха.
+  newScreen.scrollTop = 0;
+
+  updateNavigation();
+  createHearts(5);
+
+  setTimeout(() => {
+    oldScreen.classList.remove('leaving');
+    switching = false;
+  }, 650);
+}
+
+function nextScreen() {
+  goToScreen(currentScreen + 1);
+}
+
+function prevScreen() {
+  goToScreen(currentScreen - 1);
+}
+
 function startGift() {
-  document.getElementById('main').scrollIntoView({
-    behavior: 'smooth'
-  });
+  goToScreen(1);
   createHearts(12);
 }
 
@@ -480,16 +680,11 @@ function checkAnswer() {
     success.classList.add('show');
     input.disabled = true;
     createHearts(45);
-    setTimeout(() => {
-      document.getElementById('success').scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
-    }, 300);
   } else {
     success.classList.remove('show');
     message.textContent =
-      'Почти правильно, зайка, попробуй ещё <3';
+      'Почти правильно, зайка, попробуй еще <3';
+
     input.animate(
       [
         { transform: 'translateX(-5px)' },
@@ -510,8 +705,11 @@ function createHearts(amount) {
 
   for (let i = 0; i < amount; i++) {
     const heart = document.createElement('div');
+
     heart.className = 'heart';
-    heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    heart.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
     heart.style.left = Math.random() * 100 + 'vw';
     heart.style.fontSize = (18 + Math.random() * 22) + 'px';
     heart.style.animationDuration = (3 + Math.random() * 3) + 's';
@@ -541,6 +739,7 @@ function updateCountdown() {
   }
 }
 
+updateNavigation();
 updateCountdown();
 setInterval(updateCountdown, 60000);
 </script>
