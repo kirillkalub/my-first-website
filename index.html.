@@ -1,49 +1,31 @@
 <!DOCTYPE html>
+
 <html lang="ru">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой первый сайт</title>
-    <style>
-        body {
-            background: #f0eaff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 60px 20px;
-        }
 
-        h1 {
-            color: #7045c5;
-            font-size: 40px;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        p {
-            color: #444;
-            font-size: 20px;
-        }
+    <title>Мой сайт</title>
 
-        button {
-            background: #7045c5;
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 12px;
-            font-size: 17px;
-            cursor: pointer;
-        }
-    </style>
 </head>
-<body>
 
-    <h1>Привет! 👋</h1>
+<body style="background:#eee5ff; text-align:center; font-family:Arial; padding:50px 10px;">
 
-    <p>Это мой первый сайт!</p>
+    <h1 style="color:purple;">МОЙ ПЕРВЫЙ САЙТ!</h1>
 
-    <p>Я учусь создавать сайты с помощью GitHub.</p>
+    <h2>Привет! 👋</h2>
 
-    <button onclick="alert('Добро пожаловать на мой сайт!')">
-        Нажми на меня
+    <p>Если ты видишь этот текст, значит всё работает!</p>
+
+    <button onclick="alert('Ура! Моя кнопка работает!')">
+
+        Нажми меня
+
     </button>
 
 </body>
+
 </html>
