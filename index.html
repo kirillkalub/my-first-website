@@ -624,13 +624,14 @@ footer {
 }
 html,
 body {
-    overflow-x: hidden;
+    overflow-x: hidden !important;
     width: 100%;
 }
 
 .secret-screen {
-    overflow-x: hidden;
+    overflow-x: hidden !important;
     touch-action: pan-y;
+    overscroll-behavior-x: none;
 }
 
 .secret-screen * {
