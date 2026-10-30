@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>9 месяцев вместе ♡</title>
 
-</style>
+<style>
 /* СЕКРЕТНАЯ СТРАНИЦА ❤️‍🔥 */
 .secret-screen {
     position: fixed;
@@ -750,7 +750,14 @@ footer {
 
 <!-- ЭКРАН 5: ФИНАЛ -->
 <section class="screen section final-section" id="final">
-  <div style="font-size:48px">❤️‍🔥</div>
+  <div
+  style="font-size:48px"
+  id="secretHeart"
+  role="button"
+  tabindex="0"
+  aria-label="Открыть секрет"
+  onclick="openSecret()"
+>❤️‍🔥</div>
   <div class="eyebrow" style="color:#f5bfd2">Our love story</div>
   <h2>Уже 9 месяцев вместе. <br>И это только начало...</h2>
 
@@ -775,14 +782,7 @@ footer {
 <section class="secret-screen" id="secretScreen">
     <div class="secret-content">
 
-        <div
-    style="font-size:48px"
-    id="secretHeart"
-    role="button"
-    tabindex="0"
-    aria-label="Открыть секрет"
-    onclick="openSecret()"
->❤️‍🔥</div>
+        <div class="secret-orb">❤️‍🔥</div>
 
         <div class="secret-eyebrow">
             Ты нашла мой маленький секрет
