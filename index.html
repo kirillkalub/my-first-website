@@ -1,31 +1,546 @@
+
 <!DOCTYPE html>
-
 <html lang="ru">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9 месяцев вместе ♡</title>
 
-    <meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+:root {
+  --pink: #f5b6cc;
+  --rose: #d95c88;
+  --dark: #482638;
+  --cream: #fff8f5;
+}
 
-    <title>Мой сайт</title>
+* { box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--dark);
+  background: var(--cream);
+  font-family: 'Comfortaa', sans-serif;
+  overflow-x: hidden;
+}
+
+button, input { font: inherit; }
+
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 35px 22px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 15% 20%, #f7c6d8 0, transparent 35%),
+    radial-gradient(circle at 85% 80%, #e9c0d4 0, transparent 35%),
+    linear-gradient(145deg, #fff5f4, #f8e3ed);
+}
+
+.hero::before {
+  content: "♡";
+  position: absolute;
+  font-size: 240px;
+  color: #ffffff55;
+  transform: rotate(-15deg);
+}
+
+.hero-content { position: relative; z-index: 1; }
+
+.eyebrow {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #a54c70;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 12vw, 68px);
+  margin: 18px 0;
+  color: #a9446b;
+}
+
+.hero p {
+  line-height: 1.8;
+  max-width: 320px;
+  margin: 12px auto 25px;
+  font-size: 14px;
+}
+
+.primary-btn {
+  border: 0;
+  border-radius: 50px;
+  background: #a9446b;
+  color: white;
+  padding: 16px 25px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px #a9446b35;
+  transition: .25s;
+}
+
+.primary-btn:active { transform: scale(.96); }
+
+.section {
+  padding: 75px 20px;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 35px;
+  color: #a9446b;
+  margin: 10px 0 15px;
+}
+
+.subtitle {
+  color: #92677a;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.divider {
+  width: 65px;
+  height: 2px;
+  background: #e9a2bd;
+  margin: 22px auto;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  max-width: 650px;
+  margin: 30px auto 0;
+}
+
+.photo {
+  background: white;
+  padding: 8px 8px 15px;
+  border-radius: 5px;
+  box-shadow: 0 5px 18px #65344a18;
+  transform: rotate(-2deg);
+}
+
+.photo:nth-child(even) { transform: rotate(2deg); }
+
+.photo img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  background: #f6dce6;
+}
+
+.photo p {
+  font-family: 'Playfair Display', serif;
+  margin: 10px 0 0;
+  font-size: 14px;
+}
+
+.letter-section {
+  background: linear-gradient(140deg, #f8e4ed, #fff3ed);
+}
+
+.envelope {
+  max-width: 340px;
+  width: 100%;
+  margin: 30px auto;
+  padding: 28px 20px;
+  background: #fffaf7;
+  border: 1px solid #efc4d4;
+  border-radius: 18px;
+  box-shadow: 0 10px 35px #8d45631c;
+}
+
+.envelope-icon {
+  font-size: 65px;
+  margin-bottom: 10px;
+}
+
+.letter {
+  display: none;
+  text-align: left;
+  line-height: 2;
+  font-size: 14px;
+  white-space: pre-line;
+  animation: appear .7s ease;
+}
+
+.letter.show { display: block; }
+
+.letter-sign {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: #b44c76;
+  text-align: right;
+  margin-top: 20px;
+}
+
+.quiz-section {
+  background: #fffaf7;
+  min-height: 480px;
+}
+
+.quiz-card {
+  max-width: 390px;
+  margin: 30px auto;
+  background: white;
+  padding: 30px 20px;
+  border-radius: 24px;
+  box-shadow: 0 10px 35px #9c53621c;
+  border: 1px solid #f4d7e2;
+}
+
+.equation {
+  font-family: 'Playfair Display', serif;
+  font-size: 37px;
+  color: #bd4d7b;
+  margin: 10px 0 20px;
+}
+
+.answer-input {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #f0c5d6;
+  border-radius: 13px;
+  outline: none;
+  text-align: center;
+  font-size: 16px;
+  color: #71374f;
+  background: #fffafd;
+}
+
+.answer-input:focus { border-color: #c85b87; }
+
+.quiz-message {
+  min-height: 55px;
+  margin-top: 18px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #bd4d7b;
+}
+
+.success {
+  display: none;
+  padding: 22px 12px;
+  border-radius: 18px;
+  background: #fff0f5;
+  animation: appear .6s ease;
+}
+
+.success.show { display: block; }
+
+.success h2 {
+  color: #bf3978;
+  font-size: 32px;
+}
+
+.final-section {
+  background: linear-gradient(150deg, #542b40, #9f466a);
+  color: white;
+  padding: 85px 20px;
+}
+
+.final-section h2 {
+  font-size: 37px;
+  color: #ffe0eb;
+}
+
+.final-section p {
+  line-height: 2;
+  font-size: 14px;
+}
+
+.counter {
+  font-size: 20px;
+  color: #ffe1ed;
+  margin-top: 25px;
+}
+
+footer {
+  background: #542b40;
+  color: #eac8d7;
+  text-align: center;
+  padding: 22px;
+  font-size: 11px;
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  pointer-events: none;
+  z-index: 10;
+  animation: floatUp 4s linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 360px) {
+  .gallery { gap: 8px; }
+  .photo { padding: 6px 6px 12px; }
+}
+</style>
 </head>
 
-<body style="background:#eee5ff; text-align:center; font-family:Arial; padding:50px 10px;">
+<body>
 
-    <h1 style="color:purple;">МОЙ ПЕРВЫЙ САЙТ!</h1>
+<!-- ГЛАВНЫЙ ЭКРАН -->
+<header class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">01.11.2026 · особенный день</div>
+    <h1>9 месяцев<br>вместе ♡</h1>
+    <p>
+      Для моей самой лучшей и замечательной девушки.
+      Я сделал кое-что необычное. То, что тебе очень понравится (надеюсь).
+    </p>
+    <button class="primary-btn" onclick="startGift()">
+      Открыть мой подарок 💌
+    </button>
+  </div>
+</header>
 
-    <h2>Привет! 👋</h2>
+<main id="main">
 
-    <p>Если ты видишь этот текст, значит всё работает!</p>
+<!-- ФОТОГРАФИИ -->
+<section class="section" id="memories">
+  <div class="eyebrow">Наш чудесный мир</div>
+  <h2>Наши фоточки 📸</h2>
+  <div class="divider"></div>
+  <p class="subtitle">
+    Каждая фотография — маленькая частичка
+    нашей большой истории.
+  </p>
 
-    <button onclick="alert('Ура! Моя кнопка работает!')">
+  <div class="gallery">
+    <div class="photo">
+      <img src="photo1.jpg" alt="Наше воспоминание 1">
+      <p>Момент, который я люблю (как и тебя) ♡</p>
+    </div>
+    <div class="photo">
+      <img src="photo2.jpg" alt="Наше воспоминание 2">
+      <p>Ты и я</p>
+    </div>
+    <div class="photo">
+      <img src="photo3.jpg" alt="Наше воспоминание 3">
+      <p>Счастливые моменты</p>
+    </div>
+    <div class="photo">
+      <img src="photo4.jpg" alt="Наше воспоминание 4">
+      <p>Моё любимое солнышко</p>
+    </div>
+    <div class="photo">
+      <img src="photo5.jpg" alt="Наше воспоминание 5">
+      <p>И ещё одно воспоминание</p>
+    </div>
+    <div class="photo">
+      <img src="photo6.jpg" alt="Наше воспоминание 6">
+      <p>Наша история продолжается ♡</p>
+    </div>
+  </div>
+</section>
 
-        Нажми меня
+<!-- ПИСЬМО -->
+<section class="section letter-section" id="letter">
+  <div class="eyebrow">Несколько слов от меня</div>
+  <h2>Для тебя, моя кошечка Валя 💌</h2>
+  <div class="divider"></div>
 
+  <div class="envelope">
+    <div class="envelope-icon">💌</div>
+    <p class="subtitle">Я хочу кое-что сказать тебе...</p>
+
+    <button class="primary-btn" id="openLetter" onclick="openLetter()">
+      Открыть письмо ♡
     </button>
 
-</body>
+    <div class="letter" id="letterText">
+Валь, я тебя очень сильно люблю, ты говорила, что на наши 9 месяцев кто-то родится, и вот родился сайт специально для тебя) Ты лучше всех, моё солнышко.
 
+Поздравляю любимая 🖤 Спасибо тебе за все моменты, за каждую секунду что ты со мной. Я очень очень сильно дорожу тобой и нашими отношениями.
+ 
+впереди нас ждёт ещё больше, очень много счастливых моментов и воспоминаний. ♡
+      <div class="letter-sign">Только твой Кирилл 🖤</div>
+    </div>
+  </div>
+</section>
+
+<!-- ЗАГАДКА -->
+<section class="section quiz-section" id="quiz">
+  <div class="eyebrow">Отгадай маленькую загадку</div>
+  <h2>А теперь вопрос...</h2>
+  <div class="divider"></div>
+  <p class="subtitle">Думаю, ты точно знаешь ответ! ♡</p>
+
+  <div class="quiz-card">
+    <div style="font-size:40px">💗</div>
+    <div class="equation">Ты + я = ?</div>
+
+    <input
+      class="answer-input"
+      id="answer"
+      type="text"
+      placeholder="Твой ответ..."
+      autocomplete="off"
+    >
+
+    <br><br>
+
+    <button class="primary-btn" onclick="checkAnswer()">
+      Проверить ответ ♡
+    </button>
+
+    <div class="quiz-message" id="message"></div>
+
+    <div class="success" id="success">
+      <div style="font-size:50px">🎉💗🎉</div>
+      <h2>ПРАВИЛЬНО!</h2>
+      <p style="font-size:19px">Ты + я = ЛЮБОВЬ ❤️</p>
+      <p>И это мой самый любимый ответ!</p>
+      <p>Я тебя очень сильно люблю, солнышко!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ФИНАЛ -->
+<section class="section final-section" id="final">
+  <div style="font-size:48px">❤️</div>
+  <div class="eyebrow" style="color:#f5bfd2">Наша история</div>
+  <h2>9 месяцев —<br>и это только начало</h2>
+
+  <p>
+    Спасибо, что ты есть в моей жизни.<br>
+    Спасибо за твою улыбку, любовь, тепло, поддержку<br>
+    и все наши моменты.
+  </p>
+
+  <div class="counter" id="countdown"></div>
+
+  <p style="margin-top:35px;color:#ffe0eb">
+    Ты моё маленькое и самое яркое солнышко. ♡
+  </p>
+</section>
+
+</main>
+
+<footer>
+  Сделано с любовью специально для моей девочки Вали ♡
+  <br><br>
+  01.11.2026
+</footer>
+
+<script>
+function startGift() {
+  document.getElementById('main').scrollIntoView({
+    behavior: 'smooth'
+  });
+  createHearts(12);
+}
+
+function openLetter() {
+  document.getElementById('letterText').classList.add('show');
+  document.getElementById('openLetter').style.display = 'none';
+  createHearts(8);
+}
+
+function checkAnswer() {
+  const input = document.getElementById('answer');
+  const message = document.getElementById('message');
+  const success = document.getElementById('success');
+
+  const answer = input.value.trim().toLocaleLowerCase('ru');
+
+  if (answer === 'любовь') {
+    message.textContent = '';
+    success.classList.add('show');
+    input.disabled = true;
+    createHearts(45);
+    setTimeout(() => {
+      document.getElementById('success').scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }, 300);
+  } else {
+    success.classList.remove('show');
+    message.textContent =
+      'Почти правильно, зайка, попробуй ещё <3';
+    input.animate(
+      [
+        { transform: 'translateX(-5px)' },
+        { transform: 'translateX(5px)' },
+        { transform: 'translateX(0)' }
+      ],
+      { duration: 300 }
+    );
+  }
+}
+
+document.getElementById('answer').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkAnswer();
+});
+
+function createHearts(amount) {
+  const symbols = ['❤️', '💕', '💗', '♡', '💖'];
+
+  for (let i = 0; i < amount; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (18 + Math.random() * 22) + 'px';
+    heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6500);
+  }
+}
+
+function updateCountdown() {
+  const target = new Date('2026-11-01T00:00:00');
+  const now = new Date();
+  const diff = target - now;
+  const output = document.getElementById('countdown');
+
+  if (diff > 0) {
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor(diff / 3600000) % 24;
+    const minutes = Math.floor(diff / 60000) % 60;
+
+    output.textContent =
+      'До нашего особенного дня: ' +
+      days + ' д. ' + hours + ' ч. ' + minutes + ' мин. ♡';
+  } else {
+    output.textContent = 'Сегодня наш особенный день! ❤️';
+  }
+}
+
+updateCountdown();
+setInterval(updateCountdown, 60000);
+</script>
+
+</body>
 </html>
