@@ -980,13 +980,24 @@ function createHearts(amount) {
   }
 }
 
+
 function updateCountdown() {
-  const target = new Date('2026-11-01T00:00:00');
+  const target = new Date(2026, 10, 1);
+  const start = new Date(2026, 1, 1);
   const now = new Date();
-  const diff = target - now;
+
   const output = document.getElementById('countdown');
 
-  if (diff > 0) {
+  const today = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  );
+
+  // До 1 ноября — обратный отсчёт
+  if (today < target) {
+    const diff = target - now;
+
     const days = Math.floor(diff / 86400000);
     const hours = Math.floor(diff / 3600000) % 24;
     const minutes = Math.floor(diff / 60000) % 60;
@@ -994,10 +1005,64 @@ function updateCountdown() {
     output.textContent =
       'До нашего особенного дня: ' +
       days + ' д. ' + hours + ' ч. ' + minutes + ' мин. ♡';
+
+  // Только 1 ноября — праздничная надпись
+  } else if (
+    today.getFullYear() === 2026 &&
+    today.getMonth() === 10 &&
+    today.getDate() === 1
+  ) {
+    output.textContent =
+      'Сегодня только наш, особенный день! ❤️';
+
+  // Со 2 ноября — считаем прошедшие месяцы и дни
   } else {
-    output.textContent = 'Сегодня только наш, особенный день! ❤️';
+    let months =
+      (today.getFullYear() - start.getFullYear()) * 12 +
+      today.getMonth() - start.getMonth();
+
+    let anniversary = new Date(
+      start.getFullYear(),
+      start.getMonth() + months,
+      start.getDate()
+    );
+
+    if (today < anniversary) {
+      months--;
+      anniversary = new Date(
+        start.getFullYear(),
+        start.getMonth() + months,
+        start.getDate()
+      );
+    }
+
+    const days = Math.round(
+      (today - anniversary) / 86400000
+    );
+
+    const monthWord =
+      months % 10 === 1 && months % 100 !== 11
+        ? 'месяц'
+        : months % 10 >= 2 && months % 10 <= 4 &&
+          !(months % 100 >= 12 && months % 100 <= 14)
+          ? 'месяца'
+          : 'месяцев';
+
+    const dayWord =
+      days % 10 === 1 && days % 100 !== 11
+        ? 'день'
+        : days % 10 >= 2 && days % 10 <= 4 &&
+          !(days % 100 >= 12 && days % 100 <= 14)
+          ? 'дня'
+          : 'дней';
+
+    output.textContent =
+      'Мы вместе уже ' + months + ' ' +
+      monthWord + ' и ' + days + ' ' +
+      dayWord + ' ❤️';
   }
 }
+
 
 updateNavigation();
 updateCountdown();
